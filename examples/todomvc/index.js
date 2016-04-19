@@ -14,3 +14,5 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+import './src/Todos.purs'

@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var PureScriptWebpackPlugin = require('purescript-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -14,7 +15,12 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new PureScriptWebpackPlugin({
+      src: [ 'bower_components/purescript-*/src/**/*.purs', 'src/**/*.purs' ],
+      ffi: [ 'bower_components/purescript-*/src/**/*.js' ],
+      bundle: false
+    })
   ],
   module: {
     loaders: [
@@ -22,6 +28,11 @@ module.exports = {
         test: /\.js$/,
         loaders: [ 'babel' ],
         exclude: /node_modules/,
+        include: __dirname
+      },
+      {
+        test: /\.purs$/,
+        loaders: [ 'purs' ],
         include: __dirname
       },
       {

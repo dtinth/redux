@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import TodoTextInput from './TodoTextInput'
+import * as Todos from '../src/Todos.purs'
 
 class TodoItem extends Component {
   constructor(props, context) {
@@ -29,29 +30,29 @@ class TodoItem extends Component {
     let element
     if (this.state.editing) {
       element = (
-        <TodoTextInput text={todo.text}
+        <TodoTextInput text={Todos.text(todo)}
                        editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
+                       onSave={(text) => this.handleSave(Todos.id(todo), text)} />
       )
     } else {
       element = (
         <div className="view">
           <input className="toggle"
                  type="checkbox"
-                 checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
+                 checked={Todos.completed(todo)}
+                 onChange={() => completeTodo(Todos.id(todo))} />
           <label onDoubleClick={this.handleDoubleClick.bind(this)}>
-            {todo.text}
+            {Todos.text(todo)}
           </label>
           <button className="destroy"
-                  onClick={() => deleteTodo(todo.id)} />
+                  onClick={() => deleteTodo(Todos.id(todo))} />
         </div>
       )
     }
 
     return (
       <li className={classnames({
-        completed: todo.completed,
+        completed: Todos.completed(todo),
         editing: this.state.editing
       })}>
         {element}

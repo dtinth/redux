@@ -1,25 +1,34 @@
-import * as types from '../constants/ActionTypes'
+import {
+  AddTodo,
+  DeleteTodo,
+  EditTodo,
+  CompleteTodo,
+  CompleteAll,
+  ClearCompleted
+} from '../src/Todos.purs'
+
+const action = object => ({ type: 'PERFORM', action: object })
 
 export function addTodo(text) {
-  return { type: types.ADD_TODO, text }
+  return action(AddTodo.create(text))
 }
 
 export function deleteTodo(id) {
-  return { type: types.DELETE_TODO, id }
+  return action(DeleteTodo.create(id))
 }
 
 export function editTodo(id, text) {
-  return { type: types.EDIT_TODO, id, text }
+  return action(EditTodo.create(id)(text))
 }
 
 export function completeTodo(id) {
-  return { type: types.COMPLETE_TODO, id }
+  return action(CompleteTodo.create(id))
 }
 
 export function completeAll() {
-  return { type: types.COMPLETE_ALL }
+  return action(CompleteAll.value)
 }
 
 export function clearCompleted() {
-  return { type: types.CLEAR_COMPLETED }
+  return action(ClearCompleted.value)
 }

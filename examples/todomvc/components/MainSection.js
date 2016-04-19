@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import TodoItem from './TodoItem'
 import Footer from './Footer'
 import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters'
+import * as Todos from '../src/Todos.purs'
 
 const TODO_FILTERS = {
   [SHOW_ALL]: () => true,
-  [SHOW_ACTIVE]: todo => !todo.completed,
-  [SHOW_COMPLETED]: todo => todo.completed
+  [SHOW_ACTIVE]: todo => !Todos.completed(todo),
+  [SHOW_COMPLETED]: todo => Todos.completed(todo)
 }
 
 class MainSection extends Component {
@@ -57,7 +58,7 @@ class MainSection extends Component {
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter])
     const completedCount = todos.reduce((count, todo) =>
-      todo.completed ? count + 1 : count,
+      Todos.completed(todo) ? count + 1 : count,
       0
     )
 
@@ -66,7 +67,7 @@ class MainSection extends Component {
         {this.renderToggleAll(completedCount)}
         <ul className="todo-list">
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+            <TodoItem key={Todos.id(todo)} todo={todo} {...actions} />
           )}
         </ul>
         {this.renderFooter(completedCount)}

@@ -1,0 +1,16 @@
+{
+  "name": "redux-todomvc-example",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^0.1.5",
+    "purescript-math": "^1.0.0",
+    "purescript-foldable-traversable": "^0.4.2",
+    "purescript-arrays": "^0.4.5"
+  }
+}
